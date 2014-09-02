@@ -1,20 +1,17 @@
 (ns leiningen.repl-tasks
-  (:require [clojure.java.browse]
+  (:require [bikeshed.core]
+            [clojure.java.browse]
             [clojure.java.io :as io]
             [clojure.java.shell :as sh]
             [leiningen.ancient]
-            [leiningen.bikeshed]
             [leiningen.check]
             [leiningen.deps-tree]
             [leiningen.deploy]
             [leiningen.do]
             [leiningen.eastwood]
             [leiningen.install]
-
             [leiningen.run]
-            [midje.repl]
-            [vinyasa.inject :as inject]
-            [vinyasa.lein :only [lein]]))
+            [midje.repl]))
 
 (set! *warn-on-reflection* true)
 
@@ -29,9 +26,6 @@
      (set! *print-length* nil)
      (~@body)
      (set! *print-length* old-print-length#)))
-
-(defmacro do-lein [& body]
-  `(with-full-print-length vinyasa.lein/lein ~@body))
 
 (defn merge-profiles
   "Si projet clojurescript, ajoute automatiquement le profile `cljs`"
@@ -49,24 +43,17 @@
         (leiningen.core.project/read "project.clj"))))
 
 (defn lein-midje []
-  ;(do-lein with-profile +local midje))
   (midje.repl/load-facts))
 
 (defn lein-checks []
-  ;(do-lein with-profile +local "do" "ancient," "ancient" "profiles," "bikeshed," "check," "eastwood," "kibit"))
   (let [proj (project-with-profiles)]
     (leiningen.ancient/ancient proj)
     (leiningen.ancient/ancient proj "profiles")
-    ;(with-full-print-length
-      (leiningen.bikeshed/bikeshed proj)
-    ;)
+    (bikeshed.core/bikeshed proj {:verbose true})
     (leiningen.check/check proj)
     (leiningen.eastwood/eastwood proj)
     ; kibit a un peu de mal...
     ))
-
-;; vinyasa.lein ne veut pas me donner la stream out donc on fait
-;; les appels intermédiaires soi-même
 
 (defn lein-deps
   ([] (lein-deps []))
@@ -114,8 +101,3 @@
   (leiningen.deploy/deploy "acs"))
 
 ;;(sh/sh "ls")
-
-(defn repl-tasks
-  "I don't do a lot."
-  [project & args]
-  (println "Hi!" project))
