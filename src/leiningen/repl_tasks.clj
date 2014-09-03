@@ -1,4 +1,6 @@
 (ns leiningen.repl-tasks
+  "Toutes les tâches définies ici, si elles sont appelées sans profil particulier,
+  n'inclueront pas le profil 'local' et donc les dépendances tools, vinyasa, ..."
   (:require [bikeshed.core]
             [clojure.java.browse]
             [clojure.java.io :as io]
@@ -7,19 +9,14 @@
             [leiningen.check]
             [leiningen.deps-tree]
             [leiningen.deploy]
-            [leiningen.do]
             [leiningen.eastwood]
             [leiningen.install]
             [leiningen.run]
-            [midje.repl]))
+            [leiningen.uberjar]
+            ;[midje.repl]
+            ))
 
 (set! *warn-on-reflection* true)
-
-;(defn lein-midje []
-;  (let [old-print-length *print-length*]
-;    (set! *print-length* nil)
-;    (vinyasa.lein/lein with-profile +dev midje)
-;    (set! *print-length* old-print-length)))
 
 (defmacro with-full-print-length [& body]
   `(let [old-print-length# *print-length*]
@@ -27,8 +24,9 @@
      (~@body)
      (set! *print-length* old-print-length#)))
 
-(defn merge-profiles
-  "Si projet clojurescript, ajoute automatiquement le profile `cljs`"
+(defn- merge-profiles
+  "Si projet clojurescript, ajoute automatiquement le profile `cljs`
+  TODO: si projet om, ..."
   [profiles]
   (->> (or profiles [])
        (into (if (some #{'org.clojure/clojurescript}
@@ -36,17 +34,19 @@
                [:default :cljs]
                [:default]))))
 
-(defn project-with-profiles
-  ([] (project-with-profiles []))
+(defn- project-with-adequate-profiles
+  ([] (project-with-adequate-profiles []))
   ([profiles]
    (->> (merge-profiles profiles)
         (leiningen.core.project/read "project.clj"))))
 
+;; ------------------------------------------
+
 (defn lein-midje []
-  (midje.repl/load-facts))
+  #_(midje.repl/load-facts))
 
 (defn lein-checks []
-  (let [proj (project-with-profiles)]
+  (let [proj (project-with-adequate-profiles)]
     (leiningen.ancient/ancient proj)
     (leiningen.ancient/ancient proj "profiles")
     (bikeshed.core/bikeshed proj {:verbose true})
@@ -59,7 +59,7 @@
   ([] (lein-deps []))
   ([profiles]
    (spit "/tmp/dependencies.txt"
-         (-> (project-with-profiles profiles)
+         (-> (project-with-adequate-profiles profiles)
              (#'leiningen.deps-tree/make-dependency-tree)
              (#'leiningen.deps-tree/print-tree 4)
              (with-out-str)))
@@ -70,7 +70,8 @@
         (with-out-str
           (println (str "--> Bien mettre à jour la version du jar du projet dans le lanceur shell, "
                         "car ce n'est pas inclus dans ce classpath!\n\n"))
-          (->> (leiningen.core.classpath/get-classpath (leiningen.core.project/read))
+          (->> (leiningen.core.classpath/get-classpath
+                (project-with-adequate-profiles))
                (map #(clojure.string/replace % #"/home/olivier/\.m2/repository" "\\${M2_REPO}"))
                (drop-while #(not (.contains ^String % "M2_REPO")))
                (clojure.string/join ":")
@@ -84,20 +85,23 @@
   ([] (lein-pprint []))
   ([profiles]
    (with-full-print-length spit "/tmp/pprint.txt"
-     (-> (project-with-profiles profiles)
+     (-> (project-with-adequate-profiles profiles)
          (clojure.pprint/pprint)
          (with-out-str)))
    (clojure.java.browse/browse-url "/tmp/pprint.txt")))
 
 (defn lein-run []
-  (leiningen.run/run (project-with-profiles)))
+  (leiningen.run/run (project-with-adequate-profiles)))
 
 (defn lein-install []
   (lein-midje)
-  (leiningen.install/install (project-with-profiles)))
+  (leiningen.install/install (project-with-adequate-profiles)))
 
 (defn lein-deploy []
   (lein-install)
-  (leiningen.deploy/deploy "acs"))
+  (leiningen.deploy/deploy (project-with-adequate-profiles) "acs"))
+
+(defn lein-uberjar []
+  (leiningen.uberjar/uberjar (project-with-adequate-profiles)))
 
 ;;(sh/sh "ls")
