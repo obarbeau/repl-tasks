@@ -9,13 +9,13 @@
             [dependencies.core]
             [leiningen.ancient]
             [leiningen.check]
+            [leiningen.deps]
             [leiningen.deps-tree]
             [leiningen.deploy]
             [leiningen.eastwood]
             [leiningen.install]
             [leiningen.run]
-            [leiningen.uberjar]
-            [midje.repl]))
+            [leiningen.uberjar]))
 
 (set! *warn-on-reflection* true)
 
@@ -49,11 +49,17 @@
 (defn dependencies []
   (clojure.java.browse/browse-url (dependencies.core/gen-graph)))
 
-(defn lein-midje []
-  (midje.repl/load-facts))
+(defn lein-midje
+  "Si midje est présent dans les dependencies du projet, exécute les tests"
+  []
+  (if (some #{'midje/midje} (map first (:dependencies (leiningen.core.project/read))))
+    (load-string "(require '[midje.repl]) (midje.repl/load-facts)")
+    (println "lein-midje: midje n'est pas dans les dependencies de votre projet")))
 
 (defn lein-midje-auto []
-  (midje.repl/autotest))
+  (if (some #{'midje/midje} (map first (:dependencies (leiningen.core.project/read))))
+    (load-string "(require '[midje.repl]) (midje.repl/autotest)")
+    (println "midje n'est pas dans les dependencies de votre projet.")))
 
 ; kibit ne fonctionne pas
 (defn lein-checks []
@@ -65,11 +71,16 @@
     (leiningen.eastwood/eastwood proj)))
 
 (defn lein-deps
+  "c'est space mais en gros, leiningen.deps/deps va pondre dans le repl les recommandations si conflits de version
+  (il ne le fait qu'une seule fois.
+  et deps-tree va générer l'arbre des dépendances."
   ([] (lein-deps []))
   ([profiles]
-   (let [tmp-file "/tmp/dependencies.txt"]
+   (let [tmp-file "/tmp/dependencies.txt"
+         project (assoc (project-with-adequate-profiles profiles) :pedantic? :warn)]
+     (leiningen.deps/deps project :tree)
      (spit tmp-file
-           (-> (project-with-adequate-profiles profiles)
+           (-> project
                (#'leiningen.deps-tree/make-dependency-tree)
                (#'leiningen.deps-tree/print-tree 4)
                (with-out-str)))

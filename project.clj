@@ -12,9 +12,10 @@
                  [leiningen                                  ; nécessaire pour jar, inclus leiningen.core
                   #=(leiningen.core.main/leiningen-version)
                   :exclusions [org.clojure/tools.nrepl]]     ; on l'exclus car la version apportée est 0.2.0-beta5 qui bug
-                 [midje                            "1.6.3"]
                  [org.apache.httpcomponents/httpclient "4.3.5"] ; pour overrider celui de `ancient`
-                 [org.clojure/clojure              "1.6.0"]]
+                 [org.clojure/clojure              "1.6.0"]
+                 [org.clojure/tools.reader         "0.8.5"] ; pour overrider celui de ancient
+                 ]
 
   :aot [leiningen.repl-tasks]
   ;:eval-in-leiningen true ne fonctionne pas avec lein 2.4.3
