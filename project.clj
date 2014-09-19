@@ -1,4 +1,4 @@
-(defproject repl-tasks "1.0.0"
+(defproject repl-tasks "0.0.9"
   :description "PROJECTS|REPL-TASKS"
 
   :dependencies [[com.cemerick/pomegranate         "0.3.0"]
@@ -20,4 +20,5 @@
   :aot [leiningen.repl-tasks]
   ;:eval-in-leiningen true ne fonctionne pas avec lein 2.4.3
   :main leiningen.repl-tasks
-  :omit-source true)
+  :omit-source true
+  :url "http://none")
