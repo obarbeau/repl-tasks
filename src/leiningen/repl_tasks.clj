@@ -122,7 +122,7 @@
 
 (defn lein-deploy []
   (lein-install)
-  (leiningen.deploy/deploy (project-with-adequate-profiles) "acs"))
+  (leiningen.deploy/deploy (project-with-adequate-profiles) "releases"))
 
 (defn lein-uberjar []
   (leiningen.uberjar/uberjar (project-with-adequate-profiles)))
