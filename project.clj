@@ -1,4 +1,4 @@
-(defproject repl-tasks "1.1.0"
+(defproject repl-tasks "1.1.1-SNAPSHOT"
   :description "PROJECTS|REPL-TASKS"
 
   :dependencies [[com.cemerick/pomegranate         "0.3.0"]
