@@ -23,6 +23,7 @@
 .ruleset
 .settings
 pom.xml
+pom.xml.asc
 release.properties
 *.class
 *.log
