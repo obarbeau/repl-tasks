@@ -28,7 +28,7 @@
                  [:default :cljs])
                [:default]))))
 
-(defn- project-with-adequate-profiles
+(defn project-with-adequate-profiles
   ([] (project-with-adequate-profiles []))
   ([profiles]
    (->> (merge-profiles profiles)
@@ -92,7 +92,7 @@
 
 (defn lein-deploy []
   (lein-install)
-  (load-string "(require '[leiningen.deploy]) (leiningen.deploy/deploy (project-with-adequate-profiles) \"releases\")"))
+  (load-string "(require '[leiningen.deploy]) (leiningen.deploy/deploy (repl-tasks.core/project-with-adequate-profiles) \"releases\")"))
 
 (defn lein-deps
   "c'est space mais en gros, leiningen.deps/deps va pondre dans le repl les recommandations si conflits de version
@@ -104,7 +104,7 @@
                (require '[leiningen.deps])
                (require '[leiningen.deps-tree])
                (let [tmp-file \"/tmp/dependencies.txt\"
-               project (assoc (project-with-adequate-profiles) :pedantic? :warn)]
+               project (assoc (repl-tasks.core/project-with-adequate-profiles) :pedantic? :warn)]
                (leiningen.deps/deps project :tree)
                (spit tmp-file
                (-> project
@@ -118,7 +118,7 @@
 (defn lein-install []
   (add-leiningen)
   (lein-midje)
-  (load-string "(require '[leiningen.install]) (leiningen.install/install (project-with-adequate-profiles))"))
+  (load-string "(require '[leiningen.install]) (leiningen.install/install (repl-tasks.core/project-with-adequate-profiles))"))
 
 (defn lein-midje
   "Si midje est présent dans les dependencies du projet, exécute les tests"
@@ -147,15 +147,15 @@
   (add-leiningen)
   (println (str "(require '[leiningen.release] '[leiningen.core.main] "
                     "'[leiningen.core.project])\n"
-                    "(leiningen.release/release (project-with-adequate-profiles) \"" (name level) "\")")))
+                    "(leiningen.release/release (repl-tasks.core/project-with-adequate-profiles) \"" (name level) "\")")))
 
 (defn lein-run []
   (add-leiningen)
-  (load-string "(require '[leiningen.run]) (leiningen.run/run (project-with-adequate-profiles))"))
+  (load-string "(require '[leiningen.run]) (leiningen.run/run (repl-tasks.core/project-with-adequate-profiles))"))
 
 (defn lein-uberjar []
   (add-leiningen)
-  (load-string "(require '[leiningen.uberjar]) (leiningen.uberjar/uberjar (project-with-adequate-profiles))"))
+  (load-string "(require '[leiningen.uberjar]) (leiningen.uberjar/uberjar (repl-tasks.core/project-with-adequate-profiles))"))
 
 (defn sdoc []
   (add-dep 'clj-ns-browser "1.3.1")
