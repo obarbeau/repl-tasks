@@ -160,3 +160,7 @@
 (defn sdoc []
   (add-dep 'clj-ns-browser "1.3.1")
   (load-string "(require '[clj-ns-browser.sdoc]) (clj-ns-browser.sdoc/sdoc)"))
+
+(defn check-kibit []
+  (when-not (some #{'jonase/kibit} (map first (:dependencies (project-with-adequate-profiles))))
+    (println "-> kibit [jonase/kibit \"0.0.8\"] n'est pas dans les dependencies de votre projet. ctrl-k ne permettra pas le linting.")))
