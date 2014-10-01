@@ -4,6 +4,7 @@
   (:require [cemerick.pomegranate :only [add-dependencies]]
             [clojure.java.browse :only [browse-url]]
             [clojure.pprint :only [pprint]]
+            [io.aviso.ansi :as ansi]
             [leiningen.core.main :only [leiningen-version]]
             [leiningen.core.project :only [read]]))
 
@@ -125,12 +126,12 @@
   []
   (if (some #{'midje/midje} (map first (:dependencies (project-with-adequate-profiles))))
     (load-string "(require '[midje.repl]) (midje.repl/load-facts)")
-    (println "lein-midje: midje n'est pas dans les dependencies de votre projet")))
+    (println (str ansi/yellow-font "lein-midje: midje n'est pas dans les dependencies de votre projet" ansi/reset-font))))
 
 (defn lein-midje-auto []
   (if (some #{'midje/midje} (map first (:dependencies (project-with-adequate-profiles))))
     (load-string "(require '[midje.repl]) (midje.repl/autotest)")
-    (println "midje n'est pas dans les dependencies de votre projet.")))
+    (println (str ansi/yellow-font "lein-midje-auto: midje n'est pas dans les dependencies de votre projet." ansi/reset-font))))
 
 (defn lein-pprint
   "project map."
@@ -163,4 +164,5 @@
 
 (defn check-kibit []
   (when-not (some #{'jonase/kibit} (map first (:dependencies (project-with-adequate-profiles))))
-    (println "-> kibit [jonase/kibit \"0.0.8\"] n'est pas dans les dependencies de votre projet. ctrl-k ne permettra pas le linting.")))
+    (println (str ansi/yellow-font "∙ kibit [jonase/kibit \"0.0.8\"] n'est pas dans les dependencies "
+                  "de votre projet. ctrl-k ne permettra pas le linting." ansi/reset-font))))

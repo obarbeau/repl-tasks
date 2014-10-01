@@ -2,6 +2,7 @@
   :description "PROJECTS|REPL-TASKS"
 
   :dependencies [[com.cemerick/pomegranate         "0.3.0"]
+                 [io.aviso/pretty                  "0.1.8"]
                  [leiningen-core
                   #=(leiningen.core.main/leiningen-version)
                   :exclusions [org.clojure/tools.nrepl]] ; on exclus tools.nrepl car la version apportée est 0.2.0-beta5 qui bug
