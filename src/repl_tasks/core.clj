@@ -92,6 +92,7 @@
 (declare lein-install)
 
 (defn lein-deploy []
+  (println (str ansi/yellow-font "lein-deploy: si erreur, peut etre redeploy de même version alors que non autorisé ou alors -SNAPSHOT sur repo en release only" ansi/reset-font))
   (lein-install)
   (load-string "(require '[leiningen.deploy]) (leiningen.deploy/deploy (repl-tasks.core/project-with-adequate-profiles) \"releases\")"))
 
