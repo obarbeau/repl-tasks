@@ -53,7 +53,7 @@
 
 (defn lein-checks []
   (add-leiningen)
-  (add-dep 'lein-ancient "0.5.5")
+  ; (add-dep 'lein-ancient "0.5.5") faire ça en dehors du REPL, surtout s'il faut màj project.clj
   (add-dep 'org.apache.httpcomponents/httpclient "4.3.5")
   (add-dep 'jonase/eastwood "0.1.4")
   (add-dep 'lein-bikeshed "0.1.7")
