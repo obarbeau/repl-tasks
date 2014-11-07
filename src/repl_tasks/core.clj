@@ -146,6 +146,7 @@
      (clojure.java.browse/browse-url tmp-file))))
 
 (defn lein-release [level]
+  ":major, :minor, :patch, :alpha, :beta, or :rc"
   (add-leiningen)
   (println (str "(require '[leiningen.release] '[leiningen.core.main] "
                     "'[leiningen.core.project])\n"
