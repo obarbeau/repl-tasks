@@ -20,5 +20,10 @@
   :omit-source true
   :url "https://github.com/obarbeau/repl-tasks.git")
 
-; new 140922 v1.1.0 : initial version (almost))
-; màj 150114 v2.3.0 : info message for prj `cljsbuild-ui`
+; new 140902 v1.0.0 : initial version
+; new 140922 v1.1.0
+; new 140925 v2.0.0
+; new 140926 v2.1.0
+; new 141001 v2.2.0
+; màj 150114 v2.3.0 : info message for prj `cljsbuild-ui`;
+;                     add license and publish on GitHub
