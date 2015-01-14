@@ -1,6 +1,6 @@
-(ns leiningen.repl-tasks-test
+(ns repl-tasks.core-test
   (:require [clojure.test :refer :all]
-            [leiningen.repl-tasks :refer :all]
+            [repl-tasks.core :refer :all]
             [midje.repl :refer [facts]]))
 ;
 ; simplement pour que >lein-midje affiche des choses

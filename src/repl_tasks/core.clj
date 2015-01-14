@@ -16,13 +16,16 @@
      (~@body)
      (set! *print-length* old-print-length#)))
 
+(defn- cljs-project? []
+  (some #{'org.clojure/clojurescript}
+        (map first (:dependencies (leiningen.core.project/read)))))
+
 (defn- merge-profiles
   "Si projet clojurescript, ajoute automatiquement le profile `cljs`
   si projet om, ajoute ce profile"
   [profiles]
   (->> (or profiles [])
-       (into (if (some #{'org.clojure/clojurescript}
-                       (map first (:dependencies (leiningen.core.project/read))))
+       (into (if (cljs-project?)
                (if (some #{'om/om}
                          (map first (:dependencies (leiningen.core.project/read))))
                  [:default :om] ; om inclus cljs
@@ -168,3 +171,7 @@
   (when-not (some #{'jonase/kibit} (map first (:dependencies (project-with-adequate-profiles))))
     (println (str ansi/yellow-font "∙ kibit [jonase/kibit \"0.0.8\"] n'est pas dans les dependencies "
                   "de votre projet. ctrl-k ne permettra pas le linting." ansi/reset-font))))
+
+(defn check-cljsbuild-ui []
+  (when (cljs-project?)
+    (println (str ansi/green-font "∙ don't forget to use the cljsbuild-ui compiler!" ansi/reset-font))))
