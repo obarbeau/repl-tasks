@@ -5,7 +5,7 @@ No need to exit to deploy, release, ...
 
 ## Configuration
 
-TODO describe profile's update
+TODO describe profile's update: add jar to dependencies + add fcts with vinyasa
 
 ## Usage
 

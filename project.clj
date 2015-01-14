@@ -1,4 +1,4 @@
-(defproject repl-tasks "2.3.0"
+(defproject repl-tasks "2.4.0-SNAPSHOT"
   :description (str "PROJECTS|REPL-TASKS"
                     "Call lein tasks (and some lein plugins)"
                     "directly from the REPL")
@@ -16,7 +16,6 @@
 
   :aot [repl-tasks.core]
   ;:eval-in-leiningen true does not work with lein 2.4.3
-  :main repl-tasks.core
   :omit-source true
   :url "https://github.com/obarbeau/repl-tasks.git")
 
