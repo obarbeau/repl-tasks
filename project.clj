@@ -1,5 +1,10 @@
-(defproject repl-tasks "2.2.0"
-  :description "PROJECTS|REPL-TASKS"
+(defproject repl-tasks "2.3.0"
+  :description (str "PROJECTS|REPL-TASKS"
+                    "Call lein tasks (and some lein plugins)"
+                    "directly from the REPL")
+
+  :license {:name "Eclipse Public License"
+            :url "http://www.eclipse.org/legal/epl-v10.html"}
 
   :dependencies [[com.cemerick/pomegranate         "0.3.0"]
                  [io.aviso/pretty                  "0.1.8"]
@@ -15,4 +20,5 @@
   :omit-source true
   :url "https://github.com/obarbeau/repl-tasks.git")
 
-; màj 150114 v2.3.0 : ajout message d'info pour utiliser cljsbuild-ui
+; new 140922 v1.1.0 : initial version (almost))
+; màj 150114 v2.3.0 : info message for prj `cljsbuild-ui`
