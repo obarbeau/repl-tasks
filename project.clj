@@ -1,4 +1,4 @@
-(defproject repl-tasks "2.4.0-SNAPSHOT"
+(defproject repl-tasks "2.4.0"
   :description (str "PROJECTS|REPL-TASKS"
                     "Call lein tasks (and some lein plugins)"
                     "directly from the REPL")
@@ -24,5 +24,6 @@
 ; new 140925 v2.0.0
 ; new 140926 v2.1.0
 ; new 141001 v2.2.0
-; màj 150114 v2.3.0 : info message for prj `cljsbuild-ui`;
+; upd 150114 v2.3.0 : info message for prj `cljsbuild-ui`;
 ;                     add license and publish on GitHub
+; upd 150122 v2.4.0 : use forms instead of strings for load-string
