@@ -7,7 +7,7 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
 
   :dependencies [[com.cemerick/pomegranate         "0.3.0"]
-                 [io.aviso/pretty                  "0.1.8"]
+                 [io.aviso/pretty                  "0.1.14"]
                  [leiningen-core
                   #=(leiningen.core.main/leiningen-version)
                   ; tools.nrepl is excluded 'cos version 0.2.0-beta5 has a bug
@@ -27,3 +27,4 @@
 ; upd 150114 v2.3.0 : info message for prj `cljsbuild-ui`;
 ;                     add license and publish on GitHub
 ; upd 150122 v2.4.0 : use forms instead of strings for load-string
+; upd 150130 v2.4.1 : update `io.aviso/pretty`
