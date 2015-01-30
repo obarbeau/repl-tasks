@@ -18,14 +18,3 @@
   ;:eval-in-leiningen true does not work with lein 2.4.3
   :omit-source true
   :url "https://github.com/obarbeau/repl-tasks.git")
-
-; new 140902 v1.0.0 : initial version
-; new 140922 v1.1.0
-; new 140925 v2.0.0
-; new 140926 v2.1.0
-; new 141001 v2.2.0
-; upd 150114 v2.3.0 : info message for prj `cljsbuild-ui`;
-;                     add license and publish on GitHub
-; upd 150122 v2.4.0 : use forms instead of strings for load-string
-; upd 150130 v2.4.1 : update `io.aviso/pretty`
-; upd 150130 v2.5.0 : add Build & Dependency Status
