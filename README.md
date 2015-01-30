@@ -1,4 +1,9 @@
-# PROJECTS|REPL-TASKS
+# Repl-tasks
+
+[![Build Status](http://img.shields.io/travis/obarbeau/repl-tasks.svg?style=flat)](https://travis-ci.org/obarbeau/repl-tasks)
+[![Dependency Status](https://www.versioneye.com/user/projects/54cb6c0cde7924b7ed000189/badge.png?style=flat)](https://www.versioneye.com/user/projects/54cb6c0cde7924b7ed000189)
+[![Version](http://img.shields.io/badge/version-2.4.0-blue.svg?style=flat)](https://github.com/obarbeau/repl-tasks/releases)
+[![License](http://img.shields.io/badge/license-EPL-blue.svg?style=flat)](https://www.eclipse.org/legal/epl-v10.html)
 
 Call lein tasks (and some lein plugins) directly from the REPL.
 No need to exit to deploy, release, ...

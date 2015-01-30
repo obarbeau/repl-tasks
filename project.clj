@@ -28,3 +28,4 @@
 ;                     add license and publish on GitHub
 ; upd 150122 v2.4.0 : use forms instead of strings for load-string
 ; upd 150130 v2.4.1 : update `io.aviso/pretty`
+; upd 150130 v2.5.0 : add Build & Dependency Status
