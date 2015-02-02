@@ -51,9 +51,9 @@
 
 (defn dependencies []
   (add-dep 'dependencies "1.2.0")
-  (load-string (str
-                '(require '[dependencies.core])
-                '(clojure.java.browse/browse-url (dependencies.core/gen-graph)))))
+  (eval '(do
+           (require '[dependencies.core])
+           (clojure.java.browse/browse-url (dependencies.core/gen-graph)))))
 
 (defn lein-checks []
   (add-leiningen)
@@ -62,20 +62,20 @@
   (add-dep 'jonase/eastwood "0.1.4")
   (add-dep 'lein-bikeshed "0.1.7")
 
-  (load-string (str
-                '(require '[leiningen.check])
-                '(require '[leiningen.core.project])
-                '(require '[leiningen.ancient])
-                ; sans le plugin qui wrappe eastwood, on sortirait du repl
-                '(require 'leiningen.eastwood)
-                '(require '[bikeshed.core])
+  (eval '(do
+           (require '[leiningen.check])
+           (require '[leiningen.core.project])
+           (require '[leiningen.ancient])
+           ; sans le plugin qui wrappe eastwood, on sortirait du repl
+           (require 'leiningen.eastwood)
+           (require '[bikeshed.core])
 
-                '(let [proj (leiningen.core.project/read)]
-                  (leiningen.check/check proj)
-                  ;(leiningen.ancient/ancient proj)
-                  ; pour l'instant pas d'options spécifiques
-                  (leiningen.eastwood/eastwood proj)
-                   (bikeshed.core/bikeshed proj {:verbose true})))))
+           (let [proj (leiningen.core.project/read)]
+             (leiningen.check/check proj)
+             ;(leiningen.ancient/ancient proj)
+             ; pour l'instant pas d'options spécifiques
+             (leiningen.eastwood/eastwood proj)
+             (bikeshed.core/bikeshed proj {:verbose true})))))
 
 (defn lein-classpath []
   (let [tmp-file "/tmp/classpath.txt"]
@@ -98,8 +98,9 @@
 (defn lein-deploy []
   (println (str ansi/yellow-font "lein-deploy: si erreur, peut etre redeploy de même version alors que non autorisé ou alors -SNAPSHOT sur repo en release only" ansi/reset-font))
   (lein-install)
-  (load-string (str '(require '[leiningen.deploy])
-                    '(leiningen.deploy/deploy (repl-tasks.core/project-with-adequate-profiles) "releases"))))
+  (eval '(do
+           (require '[leiningen.deploy])
+           (leiningen.deploy/deploy (repl-tasks.core/project-with-adequate-profiles) "releases"))))
 
 (defn lein-deps
   "c'est space mais en gros, leiningen.deps/deps va pondre dans le repl les recommandations si conflits de version
@@ -107,41 +108,44 @@
   []
   (add-leiningen)
   (add-dep 'lein-deps-tree "0.1.2" ['com.cemerick/pomegranate])
-  (load-string (str
-                '(require '[leiningen.deps])
-                '(require '[leiningen.deps-tree])
-                '(let [tmp-file "/tmp/dependencies.txt"
-                       project (assoc (repl-tasks.core/project-with-adequate-profiles) :pedantic? :warn)]
-                   (leiningen.deps/deps project :tree)
-                   (spit tmp-file
-                         (-> project
-                             (#'leiningen.deps-tree/make-dependency-tree)
-                             (#'leiningen.deps-tree/print-tree 4)
-                             (with-out-str)))
-                   (clojure.java.browse/browse-url tmp-file)))))
+  (eval '(do
+           (require '[leiningen.deps])
+           (require '[leiningen.deps-tree])
+           (let [tmp-file "/tmp/dependencies.txt"
+                 project (assoc (repl-tasks.core/project-with-adequate-profiles) :pedantic? :warn)]
+             (leiningen.deps/deps project :tree)
+             (spit tmp-file
+                   (-> project
+                       (#'leiningen.deps-tree/make-dependency-tree)
+                       (#'leiningen.deps-tree/print-tree 4)
+                       (with-out-str)))
+             (clojure.java.browse/browse-url tmp-file)))))
 
 (declare lein-midje)
 
 (defn lein-install []
   (add-leiningen)
   (lein-midje)
-  (load-string (str '(require '[leiningen.install])
-                    '(leiningen.install/install (repl-tasks.core/project-with-adequate-profiles)))))
+  (eval '(do
+           (require '[leiningen.install])
+           (leiningen.install/install (repl-tasks.core/project-with-adequate-profiles)))))
 
 (defn lein-midje
   "Si midje est présent dans les dependencies du projet, exécute les tests"
   []
   (if (some #{'midje/midje} (map first (:dependencies (project-with-adequate-profiles))))
-    (load-string (str '(require '[midje.repl])
-                      '(midje.repl/load-facts)))
+    (eval '(do
+             (require '[midje.repl])
+             (midje.repl/load-facts)))
     (println (str ansi/yellow-font
                   "lein-midje: midje midje is not in the project's dependencies."
                   ansi/reset-font))))
 
 (defn lein-midje-auto []
   (if (some #{'midje/midje} (map first (:dependencies (project-with-adequate-profiles))))
-    (load-string (str '(require '[midje.repl])
-                      '(midje.repl/autotest)))
+    (eval '(do
+             (require '[midje.repl])
+             (midje.repl/autotest)))
     (println (str ansi/yellow-font
                   "lein-midje-auto: midje is not in the project's dependencies."
                   ansi/reset-font))))
@@ -166,18 +170,21 @@
 
 (defn lein-run []
   (add-leiningen)
-  (load-string (str '(require '[leiningen.run])
-                    '(leiningen.run/run (repl-tasks.core/project-with-adequate-profiles)))))
+  (eval '(do
+           (require '[leiningen.run])
+           (leiningen.run/run (repl-tasks.core/project-with-adequate-profiles)))))
 
 (defn lein-uberjar []
   (add-leiningen)
-  (load-string (str '(require '[leiningen.uberjar])
-                    '(leiningen.uberjar/uberjar (repl-tasks.core/project-with-adequate-profiles)))))
+  (eval '(do
+           (require '[leiningen.uberjar])
+           (leiningen.uberjar/uberjar (repl-tasks.core/project-with-adequate-profiles)))))
 
 (defn sdoc []
   (add-dep 'clj-ns-browser "1.3.1")
-  (load-string (str '(require '[clj-ns-browser.sdoc])
-                    '(clj-ns-browser.sdoc/sdoc))))
+  (eval '(do
+           (require '[clj-ns-browser.sdoc])
+           (clj-ns-browser.sdoc/sdoc))))
 
 (defn check-kibit []
   (when-not (some #{'jonase/kibit} (map first (:dependencies (project-with-adequate-profiles))))
