@@ -41,7 +41,8 @@ The project's map should be displayed.
 * 150130 2.4.1 : update `io.aviso/pretty`
 * 150130 2.5.0 : add Build & Dependency Status
 * 150130 2.6.0 : add travis.yml
-* 150102 2.6.1 : `(eval '(do ...` is better that `load-str`
+* 150202 2.6.1 : `(eval '(do ...` is better that `load-str`
+* 150206 2.6.2 : update pretty dependency
 
 ## License
 
