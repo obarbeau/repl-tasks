@@ -44,6 +44,8 @@ The project's map should be displayed.
 * 150202 2.6.1 : `(eval '(do ...` is better that `load-str`
 * 150206 2.6.2 : update pretty dependency
 * 150212 2.6.3 : add `goto` function
+* 150212 2.7.0 : use `source-paths` for `goto` function to avoid potential
+    namespaces in `checkouts` (linked projects).
 
 ## License
 

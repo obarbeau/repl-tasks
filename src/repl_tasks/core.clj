@@ -202,10 +202,16 @@
 (defn goto
   [namesp]
   "Go to and reload the specified namespace, whose name ends with arg.
-  reload also and its dependencies."
-  (if-let [n (first (filter #(.endsWith (str %) (str namesp))
-                         (clojure.tools.namespace.find/find-namespaces-in-dir
-                          (clojure.java.io/file "."))))]
+  reload also and its dependencies. Look in every source paths.
+  FIXME: doesn't work for ClojureScript NS as tools.namespace not ok with that"
+  (if-let [n (first
+              (filter
+               #(.endsWith (str %) (str namesp))
+               (->> (repl-tasks.core/project-with-adequate-profiles)
+                    :source-paths
+                    (map clojure.java.io/file)
+                    (map clojure.tools.namespace.find/find-namespaces-in-dir)
+                    (apply concat))))]
     (eval (do
             (require :reload-all [(symbol n)])
             (in-ns (symbol n))))))
