@@ -4,6 +4,7 @@
   (:require [cemerick.pomegranate :only [add-dependencies]]
             [clojure.java.browse :only [browse-url]]
             [clojure.pprint :only [pprint]]
+            [clojure.tools.namespace.find]
             [io.aviso.ansi :as ansi]
             [leiningen.core.main :only [leiningen-version]]
             [leiningen.core.project :only [read]]))
@@ -28,9 +29,9 @@
        (into (if (cljs-project?)
                (if (some #{'om/om}
                          (map first (:dependencies (leiningen.core.project/read))))
-                 [:default :om] ; om inclus cljs
-                 [:default :cljs])
-               [:default]))))
+                 [:leiningen/default :om] ; om inclus cljs
+                 [:leiningen/default :cljs])
+               [:leiningen/default]))))
 
 (defn project-with-adequate-profiles
   ([] (project-with-adequate-profiles []))
@@ -161,8 +162,9 @@
            (with-out-str)))
      (clojure.java.browse/browse-url tmp-file))))
 
-(defn lein-release [level]
+(defn lein-release
   ":major, :minor, :patch, :alpha, :beta, or :rc"
+  [level]
   (add-leiningen)
   (println (str "(require '[leiningen.release] '[leiningen.core.main] "
                 "'[leiningen.core.project])\n"
@@ -196,3 +198,14 @@
 (defn check-cljsbuild-ui []
   (when (cljs-project?)
     (println (str ansi/green-font "∙ don't forget to use the cljsbuild-ui compiler!" ansi/reset-font))))
+
+(defn goto
+  [namesp]
+  "Go to and reload the specified namespace, whose name ends with arg.
+  reload also and its dependencies."
+  (if-let [n (first (filter #(.endsWith (str %) (str namesp))
+                         (clojure.tools.namespace.find/find-namespaces-in-dir
+                          (clojure.java.io/file "."))))]
+    (eval (do
+            (require :reload-all [(symbol n)])
+            (in-ns (symbol n))))))

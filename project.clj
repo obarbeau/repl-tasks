@@ -1,6 +1,7 @@
 (defproject repl-tasks "2.6.3-SNAPSHOT"
   :description (str "PROJECTS|REPL-TASKS"
-                    "Call lein tasks (and some lein plugins)"
+                    "Call lein tasks (and some lein plugins),"
+                    "as well as utility functions"
                     "directly from the REPL")
 
   :license {:name "Eclipse Public License"
@@ -12,7 +13,8 @@
                   #=(leiningen.core.main/leiningen-version)
                   ; tools.nrepl is excluded 'cos version 0.2.0-beta5 has a bug
                   :exclusions [org.clojure/tools.nrepl]]
-                 [org.clojure/clojure              "1.6.0"]]
+                 [org.clojure/clojure              "1.6.0"]
+                 [org.clojure/tools.namespace      "0.2.9"]]
 
   :aot [repl-tasks.core]
   ;:eval-in-leiningen true does not work with lein 2.4.3

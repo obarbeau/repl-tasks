@@ -43,6 +43,7 @@ The project's map should be displayed.
 * 150130 2.6.0 : add travis.yml
 * 150202 2.6.1 : `(eval '(do ...` is better that `load-str`
 * 150206 2.6.2 : update pretty dependency
+* 150212 2.6.3 : add `goto` function
 
 ## License
 
