@@ -29,7 +29,7 @@
        (into (if (cljs-project?)
                (if (some #{'om/om}
                          (map first (:dependencies (leiningen.core.project/read))))
-                 [:leiningen/default :om] ; om inclus cljs
+                 [:leiningen/default :om]                   ; om inclus cljs
                  [:leiningen/default :cljs])
                [:leiningen/default]))))
 
@@ -85,7 +85,7 @@
             (println (str "--> Bien mettre à jour la version du jar du projet dans le lanceur shell, "
                           "car ce n'est pas inclus dans ce classpath!\n\n"))
             (->> (leiningen.core.classpath/get-classpath
-                  (project-with-adequate-profiles))
+                   (project-with-adequate-profiles))
                  (map #(clojure.string/replace % #"/home/olivier/\.m2/repository" "\\${M2_REPO}"))
                  (drop-while #(not (.contains ^String % "M2_REPO")))
                  (clojure.string/join ":")
@@ -157,9 +157,9 @@
   ([profiles]
    (let [tmp-file "/tmp/pprint.txt"]
      (with-full-print-length spit tmp-file
-       (-> (project-with-adequate-profiles profiles)
-           (clojure.pprint/pprint)
-           (with-out-str)))
+                             (-> (project-with-adequate-profiles profiles)
+                                 (clojure.pprint/pprint)
+                                 (with-out-str)))
      (clojure.java.browse/browse-url tmp-file))))
 
 (defn lein-release
@@ -204,14 +204,15 @@
   "Go to and reload the specified namespace, whose name ends with arg.
   reload also and its dependencies. Look in every source paths.
   FIXME: doesn't work for ClojureScript NS as tools.namespace not ok with that"
-  (if-let [n (first
-              (filter
-               #(.endsWith (str %) (str namesp))
-               (->> (repl-tasks.core/project-with-adequate-profiles)
-                    :source-paths
-                    (map clojure.java.io/file)
-                    (map clojure.tools.namespace.find/find-namespaces-in-dir)
-                    (apply concat))))]
+  (when-let [n (first
+                 (filter
+                   #(.endsWith (str %) (str namesp))
+                   (->> (repl-tasks.core/project-with-adequate-profiles)
+                        :source-paths
+                        (map clojure.java.io/file)
+                        (map clojure.tools.namespace.find/find-namespaces-in-dir)
+                        (apply concat))))]
+    (println (str ansi/green-font "reloading " n " and its dependencies." ansi/reset-font))
     (eval (do
             (require :reload-all [(symbol n)])
             (in-ns (symbol n))))))

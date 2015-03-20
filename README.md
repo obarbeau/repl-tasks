@@ -2,7 +2,7 @@
 
 [![Build Status](http://img.shields.io/travis/obarbeau/repl-tasks.svg?style=flat)](https://travis-ci.org/obarbeau/repl-tasks)
 [![Dependency Status](https://www.versioneye.com/user/projects/54cb6c0cde7924b7ed000189/badge.png?style=flat)](https://www.versioneye.com/user/projects/54cb6c0cde7924b7ed000189)
-[![Version](http://img.shields.io/badge/version-2.6.1-blue.svg?style=flat)](https://github.com/obarbeau/repl-tasks/releases)
+[![Version](http://img.shields.io/badge/version-2.7.1-blue.svg?style=flat)](https://github.com/obarbeau/repl-tasks/releases)
 [![License](http://img.shields.io/badge/license-EPL-blue.svg?style=flat)](https://www.eclipse.org/legal/epl-v10.html)
 
 Call lein tasks (and some lein plugins) directly from the REPL.
@@ -46,6 +46,7 @@ The project's map should be displayed.
 * 150212 2.6.3 : add `goto` function
 * 150212 2.7.0 : use `source-paths` for `goto` function to avoid potential
     namespaces in `checkouts` (linked projects).
+* 150320 2.7.1 : update pretty and tools.namespace dependencies
 
 ## License
 
