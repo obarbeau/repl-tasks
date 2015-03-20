@@ -1,4 +1,4 @@
-(defproject repl-tasks "2.7.1-SNAPSHOT"
+(defproject repl-tasks "2.7.1"
   :description (str "PROJECTS|REPL-TASKS"
                     "Call lein tasks (and some lein plugins),"
                     "as well as utility functions"
