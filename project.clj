@@ -8,7 +8,7 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
 
   :dependencies [[com.cemerick/pomegranate         "0.3.0"]
-                 [io.aviso/pretty                 "0.1.17"]
+                 [io.aviso/pretty                 "0.1.18"]
                  [leiningen-core
                   #=(leiningen.core.main/leiningen-version)
                   ; tools.nrepl is excluded 'cos version 0.2.0-beta5 has a bug

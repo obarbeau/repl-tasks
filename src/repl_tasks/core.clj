@@ -60,8 +60,8 @@
   (add-leiningen)
   ; (add-dep 'lein-ancient "0.5.5") faire ça en dehors du REPL, surtout s'il faut màj les deps de project.clj
   (add-dep 'org.apache.httpcomponents/httpclient "4.3.5")
-  (add-dep 'jonase/eastwood "0.1.4")
-  (add-dep 'lein-bikeshed "0.1.7")
+  (add-dep 'jonase/eastwood "0.2.1")
+  (add-dep 'lein-bikeshed "0.2.0")
 
   (eval '(do
            (require '[leiningen.check])
@@ -191,13 +191,13 @@
 (defn check-kibit []
   (when-not (some #{'jonase/kibit} (map first (:dependencies (project-with-adequate-profiles))))
     (println (str ansi/yellow-font
-                  "∙ kibit [jonase/kibit \"0.0.8\"] is not in the project's "
+                  "∙ kibit [jonase/kibit \"0.1.2\"] is not in the project's "
                   "dependencies. ctrl-k will not allow linting."
                   ansi/reset-font))))
 
-(defn check-cljsbuild-ui []
+(defn check-cuttle []
   (when (cljs-project?)
-    (println (str ansi/green-font "∙ don't forget to use the cljsbuild-ui compiler!" ansi/reset-font))))
+    (println (str ansi/green-font "∙ cljs project. Don't forget to compile with cuttle!" ansi/reset-font))))
 
 (defn goto
   [namesp]
