@@ -29,7 +29,7 @@
        (into (if (cljs-project?)
                (if (some #{'om/om}
                          (map first (:dependencies (leiningen.core.project/read))))
-                 [:leiningen/default :om]                   ; om inclus cljs
+                 [:leiningen/default :om]                                       ; om inclus cljs
                  [:leiningen/default :cljs])
                [:leiningen/default]))))
 
@@ -197,7 +197,10 @@
 
 (defn check-cuttle []
   (when (cljs-project?)
-    (println (str ansi/green-font "∙ cljs project. Don't forget to compile with cuttle!" ansi/reset-font))))
+    (println (str ansi/green-font "∙ cljs project. "
+                  "Don't forget to compile with cuttle,"
+                  "or lein with-profile +cljs,+local cljsbuild "
+                  "auto dev (if clj1.7+)" ansi/reset-font))))
 
 (defn goto
   [namesp]

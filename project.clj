@@ -12,8 +12,9 @@
                  [leiningen-core
                   #=(leiningen.core.main/leiningen-version)
                   ; tools.nrepl is excluded 'cos version 0.2.0-beta5 has a bug
-                  :exclusions [org.clojure/tools.nrepl]]
-                 [org.clojure/clojure              "1.6.0"]
+                  ;:exclusions [org.clojure/tools.nrepl]
+                  ]
+                 [org.clojure/clojure          "1.7.0-RC1"]
                  [org.clojure/tools.namespace     "0.2.10"]]
 
   :aot [repl-tasks.core]
