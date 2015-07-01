@@ -10,12 +10,9 @@
   :dependencies [[com.cemerick/pomegranate         "0.3.0"]
                  [io.aviso/pretty                 "0.1.18"]
                  [leiningen-core
-                  #=(leiningen.core.main/leiningen-version)
-                  ; tools.nrepl is excluded 'cos version 0.2.0-beta5 has a bug
-                  ;:exclusions [org.clojure/tools.nrepl]
-                  ]
-                 [org.clojure/clojure          "1.7.0-RC1"]
-                 [org.clojure/tools.namespace     "0.2.10"]]
+                  #=(leiningen.core.main/leiningen-version)]
+                 [org.clojure/clojure              "1.7.0"]
+                 [org.clojure/tools.namespace     "0.2.11"]]
 
   :aot [repl-tasks.core]
   ;:eval-in-leiningen true does not work with lein 2.4.3

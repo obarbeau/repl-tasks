@@ -29,7 +29,8 @@
        (into (if (cljs-project?)
                (if (some #{'om/om}
                          (map first (:dependencies (leiningen.core.project/read))))
-                 [:leiningen/default :om]                                       ; om inclus cljs
+                 ; om inclus cljs
+                 [:leiningen/default :om]
                  [:leiningen/default :cljs])
                [:leiningen/default]))))
 
