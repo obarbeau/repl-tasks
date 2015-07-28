@@ -75,9 +75,9 @@
            (let [proj (repl-tasks.core/project-with-adequate-profiles)]
              (leiningen.check/check proj)
              ;(leiningen.ancient/ancient proj)
+             (bikeshed.core/bikeshed proj {:verbose true})
              ; pour l'instant pas d'options spécifiques
-             (leiningen.eastwood/eastwood proj)
-             (bikeshed.core/bikeshed proj {:verbose true})))))
+             (leiningen.eastwood/eastwood proj)))))
 
 (defn lein-classpath []
   (let [tmp-file "/tmp/classpath.txt"]
