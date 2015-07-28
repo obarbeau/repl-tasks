@@ -67,12 +67,12 @@
   (eval '(do
            (require '[leiningen.check])
            (require '[leiningen.core.project])
-           (require '[leiningen.ancient])
+           ; (require '[leiningen.ancient])
            ; sans le plugin qui wrappe eastwood, on sortirait du repl
            (require 'leiningen.eastwood)
            (require '[bikeshed.core])
 
-           (let [proj (leiningen.core.project/read)]
+           (let [proj (repl-tasks.core/project-with-adequate-profiles)]
              (leiningen.check/check proj)
              ;(leiningen.ancient/ancient proj)
              ; pour l'instant pas d'options spécifiques
