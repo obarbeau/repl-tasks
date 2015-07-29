@@ -9,5 +9,10 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Clojure-1.7.0" level="project" />
+    <orderEntry type="library" name="tools.namespace-0.2.11" level="application" />
+    <orderEntry type="library" name="leiningen-core-2.5.1" level="application" />
+    <orderEntry type="library" name="pretty-0.1.18" level="application" />
+    <orderEntry type="library" name="pomegranate-0.3.0" level="application" />
   </component>
 </module>
