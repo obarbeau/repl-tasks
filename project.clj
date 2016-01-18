@@ -1,4 +1,4 @@
-(defproject repl-tasks "3.0.0-SNAPSHOT"
+(defproject repl-tasks "3.1.0-SNAPSHOT"
   :description (str "PROJECTS|REPL-TASKS"
                     "Call lein tasks (and some lein plugins),"
                     "as well as utility functions"
@@ -11,7 +11,7 @@
                  [io.aviso/pretty                 "0.1.18"]
                  [leiningen-core
                   #=(leiningen.core.main/leiningen-version)]
-                 [org.clojure/clojure              "1.7.0"]
+                 [org.clojure/clojure              "1.8.0-RC3"]
                  [org.clojure/tools.namespace     "0.2.11"]]
 
   :aot [repl-tasks.core]
