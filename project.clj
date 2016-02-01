@@ -11,7 +11,7 @@
                  [io.aviso/pretty                 "0.1.18"]
                  [leiningen-core
                   #=(leiningen.core.main/leiningen-version)]
-                 [org.clojure/clojure              "1.8.0-RC3"]
+                 [org.clojure/clojure              "1.8.0"]
                  [org.clojure/tools.namespace     "0.2.11"]]
 
   :aot [repl-tasks.core]

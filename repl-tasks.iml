@@ -13,6 +13,6 @@
     <orderEntry type="library" name="leiningen-core-2.5.1" level="application" />
     <orderEntry type="library" name="pretty-0.1.18" level="application" />
     <orderEntry type="library" name="pomegranate-0.3.0" level="application" />
-    <orderEntry type="library" name="clojure-1.8.0-RC3" level="project" />
+    <orderEntry type="library" name="Leiningen: org.clojure/clojure:1.8.0" level="project" />
   </component>
 </module>
