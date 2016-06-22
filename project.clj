@@ -7,8 +7,8 @@
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
 
-  :dependencies [[com.cemerick/pomegranate         "0.3.0"]
-                 [io.aviso/pretty                 "0.1.18"]
+  :dependencies [[com.cemerick/pomegranate         "0.3.1"]
+                 [io.aviso/pretty                 "0.1.26"]
                  [leiningen-core
                   #=(leiningen.core.main/leiningen-version)]
                  [org.clojure/clojure              "1.8.0"]

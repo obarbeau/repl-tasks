@@ -57,27 +57,28 @@
            (require '[dependencies.core])
            (clojure.java.browse/browse-url (dependencies.core/gen-graph)))))
 
-(defn lein-checks []
-  (add-leiningen)
-  ; (add-dep 'lein-ancient "0.5.5") faire ça en dehors du REPL, surtout s'il faut màj les deps de project.clj
-  (add-dep 'org.apache.httpcomponents/httpclient "4.3.5")
-  (add-dep 'jonase/eastwood "0.2.1")
-  (add-dep 'lein-bikeshed "0.2.0")
+#_(defn lein-checks []
+    (add-leiningen)
+    ; (add-dep 'lein-ancient "0.5.5") faire ça en dehors du REPL,
+    ; surtout s'il faut màj les deps de project.clj
+    (add-dep 'org.apache.httpcomponents/httpclient "4.3.5")
+    (add-dep 'jonase/eastwood "0.2.1")
+    (add-dep 'lein-bikeshed "0.2.0")
 
-  (eval '(do
-           (require '[leiningen.check])
-           (require '[leiningen.core.project])
-           ; (require '[leiningen.ancient])
-           ; sans le plugin qui wrappe eastwood, on sortirait du repl
-           (require 'leiningen.eastwood)
-           (require '[bikeshed.core])
+    (eval '(do
+             (require '[leiningen.check])
+             (require '[leiningen.core.project])
+             ; (require '[leiningen.ancient])
+             ; sans le plugin qui wrappe eastwood, on sortirait du repl
+             (require 'leiningen.eastwood)
+             (require '[bikeshed.core])
 
-           (let [proj (repl-tasks.core/project-with-adequate-profiles)]
-             (leiningen.check/check proj)
-             ;(leiningen.ancient/ancient proj)
-             (bikeshed.core/bikeshed proj {:verbose true})
-             ; pour l'instant pas d'options spécifiques
-             (leiningen.eastwood/eastwood proj)))))
+             (let [proj (repl-tasks.core/project-with-adequate-profiles)]
+               (leiningen.check/check proj)
+               ;(leiningen.ancient/ancient proj)
+               (bikeshed.core/bikeshed proj {:verbose true})
+               ; pour l'instant pas d'options spécifiques
+               (leiningen.eastwood/eastwood proj)))))
 
 (defn lein-classpath []
   (let [tmp-file "/tmp/classpath.txt"]
