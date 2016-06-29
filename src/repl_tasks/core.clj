@@ -6,10 +6,35 @@
             [clojure.pprint :only [pprint]]
             [clojure.tools.namespace.find]
             [io.aviso.ansi :as ansi]
+            [leiningen.core.classpath :as lcc
+             :refer [checkout-deps-paths resolve-dependencies]]
             [leiningen.core.main :only [leiningen-version]]
             [leiningen.core.project :only [read]]))
 
 (set! *warn-on-reflection* true)
+
+(intern 'leiningen.core.classpath 'get-classpath
+        (fn [project]
+          (let [project (assoc project
+                          :dependencies-wo-test
+                          (->> (:dependencies project)
+                               (filter (fn [dep]
+                                         (as-> dep $$
+                                               (drop-while #(not= :scope %) $$)
+                                               (second $$)
+                                               (or $$ "")
+                                               (name $$)
+                                               (not= "test" $$))))))]
+            (for [path (concat (:test-paths project)
+                               (:source-paths project)
+                               (:resource-paths project)
+                               [(:compile-path project)]
+                               (checkout-deps-paths project)
+                               (for [dep (resolve-dependencies
+                                           :dependencies-wo-test project)]
+                                 (.getAbsolutePath dep)))
+                  :when path]
+              (#'lcc/normalize-path (:root project) path)))))
 
 (defmacro with-full-print-length [& body]
   `(let [old-print-length# *print-length*]

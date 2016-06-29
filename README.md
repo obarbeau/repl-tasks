@@ -2,7 +2,7 @@
 
 [![Build Status](http://img.shields.io/travis/obarbeau/repl-tasks.svg?style=flat)](https://travis-ci.org/obarbeau/repl-tasks)
 [![Dependency Status](https://www.versioneye.com/user/projects/54cb6c0cde7924b7ed000189/badge.png?style=flat)](https://www.versioneye.com/user/projects/54cb6c0cde7924b7ed000189)
-[![Version](http://img.shields.io/badge/version-3.1.0-blue.svg?style=flat)](https://github.com/obarbeau/repl-tasks/releases)
+[![Version](http://img.shields.io/badge/version-3.2.0-blue.svg?style=flat)](https://github.com/obarbeau/repl-tasks/releases)
 [![License](http://img.shields.io/badge/license-EPL-blue.svg?style=flat)](https://www.eclipse.org/legal/epl-v10.html)
 
 Call lein tasks (and some lein plugins) directly from the REPL.
@@ -52,6 +52,7 @@ The project's map should be displayed.
 * 150630 2.9.0 : clojure 1.7
 * 160111 3.0.0 : clojure 1.8-RC3
 * 160622 3.1.0 : upd deps; remove `lein-checks`, rather done via cmd line
+* 160628 3.2.0 : remove scope=test dependencies when getting classpath
 
 ## License
 
