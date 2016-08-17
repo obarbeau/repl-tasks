@@ -13,29 +13,6 @@
 
 (set! *warn-on-reflection* true)
 
-(intern 'leiningen.core.classpath 'get-classpath
-        (fn [project]
-          (let [project (assoc project
-                          :dependencies-wo-test
-                          (->> (:dependencies project)
-                               (filter (fn [dep]
-                                         (as-> dep $$
-                                               (drop-while #(not= :scope %) $$)
-                                               (second $$)
-                                               (or $$ "")
-                                               (name $$)
-                                               (not= "test" $$))))))]
-            (for [path (concat (:test-paths project)
-                               (:source-paths project)
-                               (:resource-paths project)
-                               [(:compile-path project)]
-                               (checkout-deps-paths project)
-                               (for [dep (resolve-dependencies
-                                           :dependencies-wo-test project)]
-                                 (.getAbsolutePath dep)))
-                  :when path]
-              (#'lcc/normalize-path (:root project) path)))))
-
 (defmacro with-full-print-length [& body]
   `(let [old-print-length# *print-length*]
      (set! *print-length* nil)
@@ -111,8 +88,20 @@
           (with-out-str
             (println (str "--> Bien mettre à jour la version du jar du projet dans le lanceur shell, "
                           "car ce n'est pas inclus dans ce classpath!\n\n"))
-            (->> (leiningen.core.classpath/get-classpath
-                   (project-with-adequate-profiles))
+            (->> (let [pmap (project-with-adequate-profiles)]
+                   (leiningen.core.classpath/get-classpath
+                     ; filter project's dependencies before getting classpath.
+                     (update pmap
+                             :dependencies
+                             (fn [deps mdeps]
+                               (filter (fn [dep]
+                                         (as-> dep $$
+                                               (drop-while #(not= :scope %) $$)
+                                               (second $$)
+                                               (or $$ "")
+                                               (name $$)
+                                               (not= "test" $$))) deps))
+                             (:managed-dependencies pmap))))
                  (map #(clojure.string/replace % #"/home/olivier/\.m2/repository" "\\${M2_REPO}"))
                  (drop-while #(not (.contains ^String % "M2_REPO")))
                  (clojure.string/join ":")
