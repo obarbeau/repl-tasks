@@ -5,6 +5,10 @@
 [![Version](http://img.shields.io/badge/version-3.2.0-blue.svg?style=flat)](https://github.com/obarbeau/repl-tasks/releases)
 [![License](http://img.shields.io/badge/license-EPL-blue.svg?style=flat)](https://www.eclipse.org/legal/epl-v10.html)
 
+**This project is no longer supported**
+**some libs like `spyscope` and `vinyasa` do not conform to clojure.spec, at the time of writing,**
+**so I rather use a common repl init namespace with few selected utility functions.**
+
 Call lein tasks (and some lein plugins) directly from the REPL.
 No need to exit to deploy, release, ...
 

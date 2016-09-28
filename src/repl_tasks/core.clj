@@ -1,15 +1,15 @@
 (ns repl-tasks.core
   "Toutes les tâches définies ici, si elles sont appelées sans profil particulier,
   n'inclueront pas le profil 'local' et donc les dépendances tools, vinyasa, ..."
-  (:require [cemerick.pomegranate :only [add-dependencies]]
-            [clojure.java.browse :only [browse-url]]
-            [clojure.pprint :only [pprint]]
-            [clojure.tools.namespace.find]
-            [io.aviso.ansi :as ansi]
-            [leiningen.core.classpath :as lcc
-             :refer [checkout-deps-paths resolve-dependencies]]
-            [leiningen.core.main :only [leiningen-version]]
-            [leiningen.core.project :only [read]]))
+  (:require
+    ;[cemerick.pomegranate :only [add-dependencies]]
+    [clojure.java.browse :only [browse-url]]
+    [clojure.pprint :only [pprint]]
+    [clojure.tools.namespace.find]
+    [io.aviso.ansi :as ansi]
+    ;[leiningen.core.classpath :as lcc :refer [checkout-deps-paths resolve-dependencies]]
+    [leiningen.core.main :only [leiningen-version]]
+    [leiningen.core.project :only [read]]))
 
 (set! *warn-on-reflection* true)
 
@@ -45,11 +45,15 @@
 (defn add-dep
   ([dependency version] (add-dep dependency version []))
   ([dependency version exclusions]
-   (let [repos {"clojars" "http://clojars.org/repo"}]
-     (cemerick.pomegranate/add-dependencies :coordinates [[dependency version :exclusions exclusions]] :repositories repos))))
+   (println "should add " [dependency version exclusions])
+    #_(let [repos {"clojars" "http://clojars.org/repo"}]
+        (cemerick.pomegranate/add-dependencies
+          :coordinates
+          [[dependency version :exclusions exclusions]] :repositories repos))))
 
 (defn add-leiningen []
-  (add-dep 'leiningen (leiningen.core.main/leiningen-version) '[[org.clojure/tools.nrepl]]))
+  (add-dep 'leiningen (leiningen.core.main/leiningen-version)
+           '[[org.clojure/tools.nrepl]]))
 
 ;; ------------------------------------------
 
