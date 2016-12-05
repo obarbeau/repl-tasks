@@ -1,18 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module type="JAVA_MODULE" version="4">
-  <component name="NewModuleRootManager" inherit-compiler-output="true">
+<module cursive.leiningen.project.LeiningenProjectsManager.displayName="repl-tasks:3.3.1-SNAPSHOT" cursive.leiningen.project.LeiningenProjectsManager.isLeinModule="true" type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="false">
+    <output url="file://$MODULE_DIR$/target/classes" />
+    <output-test url="file://$MODULE_DIR$/target/classes" />
     <exclude-output />
     <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/dev-resources" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/resources" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/test" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="tools.namespace-0.2.11" level="application" />
-    <orderEntry type="library" name="leiningen-core-2.5.1" level="application" />
-    <orderEntry type="library" name="pretty-0.1.18" level="application" />
-    <orderEntry type="library" name="pomegranate-0.3.0" level="application" />
-    <orderEntry type="library" name="Leiningen: org.clojure/clojure:1.8.0" level="project" />
+    <orderEntry type="library" name="Leiningen: bultitude:0.2.8" level="project" />
+    <orderEntry type="library" name="Leiningen: classlojure:0.6.6" level="project" />
+    <orderEntry type="library" name="Leiningen: clojure-complete:0.2.4" level="project" />
+    <orderEntry type="library" name="Leiningen: com.hypirion/io:0.3.1" level="project" />
+    <orderEntry type="library" name="Leiningen: commons-codec:1.6" level="project" />
+    <orderEntry type="library" name="Leiningen: commons-io:2.2" level="project" />
+    <orderEntry type="library" name="Leiningen: commons-lang:2.6" level="project" />
+    <orderEntry type="library" name="Leiningen: commons-logging:1.1.3" level="project" />
+    <orderEntry type="library" name="Leiningen: io.aviso/pretty:0.1.30" level="project" />
+    <orderEntry type="library" name="Leiningen: leiningen-core:2.7.1" level="project" />
+    <orderEntry type="library" name="Leiningen: org.apache.httpcomponents/httpclient:4.3.5" level="project" />
+    <orderEntry type="library" name="Leiningen: org.apache.httpcomponents/httpcore:4.3.2" level="project" />
+    <orderEntry type="library" name="Leiningen: org.apache.maven.wagon/wagon-http-shared:2.10" level="project" />
+    <orderEntry type="library" name="Leiningen: org.apache.maven.wagon/wagon-http:2.10" level="project" />
+    <orderEntry type="library" name="Leiningen: org.apache.maven.wagon/wagon-provider-api:2.10" level="project" />
+    <orderEntry type="library" name="Leiningen: org.clojure/clojure:1.9.0-alpha1" level="project" />
+    <orderEntry type="library" name="Leiningen: org.clojure/tools.macro:0.1.1" level="project" />
+    <orderEntry type="library" name="Leiningen: org.clojure/tools.namespace:0.2.11" level="project" />
+    <orderEntry type="library" name="Leiningen: org.clojure/tools.nrepl:0.2.12" level="project" />
+    <orderEntry type="library" name="Leiningen: org.codehaus.plexus/plexus-utils:3.0.15" level="project" />
+    <orderEntry type="library" name="Leiningen: org.jsoup/jsoup:1.7.2" level="project" />
+    <orderEntry type="library" name="Leiningen: org.tcrawley/dynapath:0.2.4" level="project" />
+    <orderEntry type="library" name="Leiningen: pedantic:0.2.0" level="project" />
+    <orderEntry type="library" name="Leiningen: robert/hooke:1.3.0" level="project" />
+    <orderEntry type="library" name="Leiningen: useful:0.8.3-alpha8" level="project" />
   </component>
 </module>
